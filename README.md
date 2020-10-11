@@ -4,24 +4,33 @@ Develop a command line tool for scraping an University Staff Directory pages and
 
 You can assume that the contact information is contained in HTML table rows and cells ("tr" and "td" elements). The tool takes two required input parameters for a page to be scraped and sport to be filtered, as well as optional parameters to help with locating the table rows and cells.
 
+
 Input format:
 
 python scrape.py --url=page_url --sport=sport_name
+
 or:
 
 python scrape.py --url=page_url --sport=sport_name --html-element=element_name --html-element-id=element_id
+
 or:
 
 python scrape.py --url=page_url --sport=sport_name --html-element=element_name --html-element-index=element_index 
+
 or:
 
 python scrape.py --url=page_url --sport=sport_name --html-element=element_name --html-element-class=element_class
+
 Input parameters:
 
 (required) page_url - the Staff Directory page URL to be scraped (e.g. each one of the Test URLs below)
+
 (required) sport_name - the sport name to be filtered (case insensitive, e.g. "volleyball")
+
 (optional) element_name - the name of the HTML element to be searched for (e.g. "tr" or "table")
+
 (optional, mutually exclusive) element_id, element_index, or element_class - the id, index, or HTML style class of the specified HTML element to be searched for (e.g. id "Table1", or index 1, or HTML style class "redrow")
+
 Test URLs:
 
 Seattle University Staff Directory (http://www.goseattleu.com/StaffDirectory.dbml)
