@@ -36,6 +36,7 @@ Test URLs:
 Seattle University Staff Directory (http://www.goseattleu.com/StaffDirectory.dbml)
 Arkansas State Red Wolves Athletic Staff Directory (http://www.astateredwolves.com/ViewArticle.dbml?ATCLID=207138)
 Arizona Wildcats Athletics Staff Directory (https://athletics.arizona.edu/StaffDirectory/index.asp)
+
 The output should be in JSON format, e.g. for the first Test URL and "volleyball" as a sport:
 
 [
