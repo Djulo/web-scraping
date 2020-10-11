@@ -63,6 +63,7 @@ The output should be in JSON format, e.g. for the first Test URL and "volleyball
 ]
 
 Assignment Bonus
+
 Please note that the URL might point to the page that has an iframe HTML element, with the Staff Directory page loaded as a sub-page. For bonus points, the tool should be able to recognize such situation (i.e. if no results have been found and the page contains iframe elements), proceed with loading the iframe source, and repeat the search. Please use the URL below to test this functionality.
 
 Bonus Test URL:
