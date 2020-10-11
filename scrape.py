@@ -1,20 +1,13 @@
+import argparse
+import sys
 import requests
 import lxml.html as lh
 import json
 from statistics import mode
 import re
 
-pages = [
-    'http://www.goseattleu.com/StaffDirectory.dbml',
-    'http://www.astateredwolves.com/ViewArticle.dbml?ATCLID=207138',
-    'https://athletics.arizona.edu/StaffDirectory/index.asp',
-    'https://arizonawildcats.com/sports/2007/8/1/207969432.aspx'
-]
 
-sport = "volleyball"
-
-
-def get_data(url):
+def get_data(url, sport, element, element_id, element_index, element_class):
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1)'
                              ' AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95'
                              ' Safari/537.36'}
@@ -36,7 +29,12 @@ def get_data(url):
                 r'(?::\d+)?'  # optional port
                 r'(?:/?|[/?]\S+)$', re.IGNORECASE)
             if re.match(regex, url):
-                get_data(url)
+                get_data(url,
+                         sport,
+                         element,
+                         element_id,
+                         element_index,
+                         element_class)
         return
 
     most_common = mode([len(T) for T in rows])
@@ -75,13 +73,37 @@ def get_data(url):
                     flag = True
                     break
 
-
     print(json.dumps(staff, indent=4))
 
+
+def parse_args(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("url")
+    parser.add_argument("sport")
+    parser.add_argument("--html_elem", choices=['table', 'tr', 'td'])
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--element_id')
+    group.add_argument('--element_index')
+    group.add_argument('--element_class')
+
+    return parser.parse_args(args)
+
+
 def main():
-    # todo: add argument parsing
-    url = pages[3]
-    get_data(url)
+    parser = parse_args(sys.argv[1:])
+    if parser.html_elem \
+            and parser.element_id is None \
+            and parser.element_index is None \
+            and parser.element_class is None:
+        print('--html_elem requires --element_id or --element_index ''or --element_class')
+        exit()
+
+    get_data(parser.url,
+             parser.sport,
+             parser.html_elem,
+             parser.element_id,
+             parser.element_index,
+             parser.element_class)
 
 
 if __name__ == '__main__':
